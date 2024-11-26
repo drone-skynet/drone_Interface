@@ -15,13 +15,13 @@
   ```json
   {
     "command": "SET_MODE",
-    "drone_id": <드론 ID>,
+    "sys_id": <드론 ID>,
     "mode": <모드 이름>
   }
   ```
 - **필드 설명**:
   - `command`: 항상 "SET_MODE"로 설정합니다.
-  - `drone_id`: 제어할 드론의 ID (정수).
+  - `sys_id`: 제어할 드론의 ID (정수).
   - `mode`: 설정할 모드의 이름 ("AUTO" 또는 "BREAK").
 
 ### 2. destinations
@@ -30,7 +30,7 @@
   ```json
   {
     "command": "destinations",
-    "drone_id": <드론 ID>,
+    "sys_id": <드론 ID>,
     "waypoints": [
       {
         "latitude": 37.123456,
@@ -42,7 +42,7 @@
   ```
 - **필드 설명**:
   - `command`: 항상 "destinations"로 설정합니다.
-  - `drone_id`: 제어할 드론의 ID (정수).
+  - `sys_id`: 제어할 드론의 ID (정수).
   - `waypoints`: 드론이 이동할 위치의 리스트 (배열).
     - 각 waypoint 객체는 다음 필드를 포함합니다:
       - `latitude`: 드론이 이동할 위치의 위도 (실수).
@@ -55,13 +55,13 @@
   ```json
   {
     "command": "TAKEOFF",
-    "drone_id": <드론 ID>,
+    "sys_id": <드론 ID>,
     "altitude": <이륙 고도>
   }
   ```
 - **필드 설명**:
   - `command`: 항상 "TAKEOFF"로 설정합니다.
-  - `drone_id`: 제어할 드론의 ID (정수).
+  - `sys_id`: 제어할 드론의 ID (정수).
   - `altitude`: 드론이 이륙할 고도 (기본값: 10).
 
 ### 4. MOVE_TO
@@ -70,12 +70,12 @@
   ```json
   {
     "command": "MOVE_TO",
-    "drone_id": <드론 ID>
+    "sys_id": <드론 ID>
   }
   ```
 - **필드 설명**:
   - `command`: 항상 "MOVE_TO"로 설정합니다.
-  - `drone_id`: 제어할 드론의 ID (정수).
+  - `sys_id`: 제어할 드론의 ID (정수).
 
 ### 5. LAND
 - **설명**: 드론을 착륙시킵니다.
@@ -83,12 +83,12 @@
   ```json
   {
     "command": "LAND",
-    "drone_id": <드론 ID>
+    "sys_id": <드론 ID>
   }
   ```
 - **필드 설명**:
   - `command`: 항상 "LAND"로 설정합니다.
-  - `drone_id`: 제어할 드론의 ID (정수).
+  - `sys_id`: 제어할 드론의 ID (정수).
 
 ### 6. ARM
 - **설명**: 드론의 모터를 활성화합니다.
@@ -96,12 +96,12 @@
   ```json
   {
     "command": "ARM",
-    "drone_id": <드론 ID>
+    "sys_id": <드론 ID>
   }
   ```
 - **필드 설명**:
   - `command`: 항상 "ARM"으로 설정합니다.
-  - `drone_id`: 제어할 드론의 ID (정수).
+  - `sys_id`: 제어할 드론의 ID (정수).
 
 ## 예시 JSON 명령
 
@@ -109,7 +109,7 @@
    ```json
    {
      "command": "SET_MODE",
-     "drone_id": 1,
+     "sys_id": 1,
      "mode": "AUTO"
    }
    ```
@@ -118,7 +118,7 @@
    ```json
    {
      "command": "destinations",
-     "drone_id": 1,
+     "sys_id": 1,
      "waypoints": [
        {
          "latitude": 37.123456,
@@ -133,7 +133,7 @@
    ```json
    {
      "command": "TAKEOFF",
-     "drone_id": 1,
+     "sys_id": 1,
      "altitude": 20
    }
    ```
@@ -142,7 +142,7 @@
    ```json
    {
      "command": "MOVE_TO",
-     "drone_id": 1
+     "sys_id": 1
    }
    ```
 
@@ -150,7 +150,7 @@
    ```json
    {
      "command": "LAND",
-     "drone_id": 1
+     "sys_id": 1
    }
    ```
 
@@ -158,7 +158,7 @@
    ```json
    {
      "command": "ARM",
-     "drone_id": 1
+     "sys_id": 1
    }
    ```
 ```

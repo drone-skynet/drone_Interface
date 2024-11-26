@@ -6,7 +6,9 @@ import json
 
 # MQTT 브로커 정보
 MQTT_BROKER = 'localhost'
-PUB_TOPIC = '/Mobius/SJ_Skynet/GCS_Data/TestDrone1/sitl'
+def pub_topic(sys_id) :
+    return f'/Mobius/SJ_Skynet/GCS_Data/TestDrone{251-int(sys_id)}/sitl'
+
 SUB_TOPIC = '/Mobius/SJ_Skynet/Drone_Control/Commands'  # Mobius로부터 받을 토픽
 
 # SUB_TOPIC = '/Mobius/SJ_Skynet/GCS_Data/TestDrone{251-int(sys_id)}/sitl'    
@@ -37,7 +39,7 @@ def on_message(client, userdata, message):
 # MQTT 메시지 발행 함수
 def publish_control_command(command_data):
     command = command_data.get("command")
-    sys_id = command_data.get("drone_id")
+    sys_id = command_data.get("sys_id")
     
     mav_msg = None
 
@@ -93,10 +95,7 @@ def publish_control_command(command_data):
                 0, 0, 0,  # 가속도 (not used)
                 0, 0  # yaw, yaw_rate (not used)
             )
-            # 메시지 발행
-            mavlink_msg_bytes = mav_msg.pack(mavutil.mavlink.MAVLink('', 255, 190))
-            client.publish(PUB_TOPIC, mavlink_msg_bytes)
-            print(f"Published MAVLink command for waypoint: {waypoint}")
+
 
 
     elif command == "LAND":
@@ -119,10 +118,11 @@ def publish_control_command(command_data):
             param2=0, param3=0, param4=0, param5=0, param6=0, param7=0
         )
 
+    pub_topic1 = pub_topic(command_data.get("sys_id"))
     # 메시지 발행
     if mav_msg:
         mavlink_msg_bytes = mav_msg.pack(mavutil.mavlink.MAVLink('', 255, 190))
-        # client.publish(PUB_TOPIC, mavlink_msg_bytes)
+        client.publish(pub_topic1, mavlink_msg_bytes)
         print(f"Published MAVLink command: {mavlink_msg_bytes}")
 
 # 메인 함수
